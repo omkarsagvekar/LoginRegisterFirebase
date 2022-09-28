@@ -86,7 +86,6 @@ public class UpdateDialog extends DialogFragment {
         });
 
         return view;
-//        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 }
