@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/drawable/admin_dialog.xml" value="0.265" />
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/drawable/rounded_edittext.xml" value="0.265" />
         <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/activity_login.xml" value="0.2682291666666667" />
         <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/activity_main.xml" value="0.2682291666666667" />
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/activity_main_items.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/activity_register.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/activity_update_dialog.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/admin_bottomsheet_layout.xml" value="0.271875" />
+        <entry key="..\:/Android_Workspace/LoginRegisterFirebase/app/src/main/res/layout/item_recycler.xml" value="0.27291666666666664" />
       </map>
     </option>
   </component>

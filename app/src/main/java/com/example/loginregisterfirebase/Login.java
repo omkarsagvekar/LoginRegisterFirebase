@@ -2,15 +2,26 @@ package com.example.loginregisterfirebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginregisterfirebase.Model.MainModel;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,9 +30,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     private EditText etPhone, etPassword;
-    private Button btnLogin;
+    private Button btnLogin, btnAdminLogin;
     private TextView tvRegister;
+    private MainAdapter mainAdapter;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://myfirstproject-5e907-default-rtdb.firebaseio.com/");
+
+    private Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +49,8 @@ public class Login extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
         tvRegister = findViewById(R.id.tv_register);
+        btnAdminLogin = findViewById(R.id.btn_adminLogin);
+
     }
 
     private void allListeners() {
@@ -80,6 +96,51 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Register.class));
             }
         });
-    }       
 
+        btnAdminLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAdminDialog();
+
+            }
+            private void showAdminDialog() {
+
+                dialog = new Dialog(Login.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.admin_bottomsheet_layout);
+
+                EditText etAdminName = dialog.findViewById(R.id.adminName);
+                EditText etAdminPassword = dialog.findViewById(R.id.adminPassword);
+                Button btnLogin = dialog.findViewById(R.id.adminDialogLogin);
+
+                btnLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (etAdminName.getText().toString().isEmpty() || etAdminPassword.getText().toString().isEmpty()){
+                            Toast.makeText(Login.this, "Fields should not be empty", Toast.LENGTH_SHORT).show();
+                        }else if (etAdminName.getText().toString().equals("admin") && etAdminPassword.getText().toString().equals("admin123")){
+                            startActivity(new Intent(Login.this, ShowUsersList.class));
+                            finish();
+                        }else{
+                            Toast.makeText(Login.this, "Invalid name or password", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                dialog.show();
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+            }
+
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        Toast.makeText(this, "OnPause!", Toast.LENGTH_SHORT).show();
+        super.onPause();
+        dialog.dismiss();
+    }
 }
