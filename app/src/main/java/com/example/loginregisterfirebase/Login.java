@@ -156,7 +156,6 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Toast.makeText(this, "OnPause!", Toast.LENGTH_SHORT).show();
         super.onPause();
         dialog.dismiss();
     }
